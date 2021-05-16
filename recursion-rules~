@@ -1,0 +1,4 @@
+Recursion rules:
+1. Find a non-recursive case
+2. Find a subproblem that is not equal to the same problem and does not include it. Extra condition: this subprolem, called step, must terminate with the result or at least have side-effects that affect the parallel computation of the original problem in a finite amount of time.
+3. Find a way to split the original problem into the step and a case that is closer to the non-recursive case

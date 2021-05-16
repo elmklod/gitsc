@@ -1,0 +1,11 @@
+(defmacro if-found-return-pred (pred &rest r)
+  (let ((block-name (gensym)))
+    `(block ,block-name
+       ,(cons
+         'find-if
+         (cons
+          `(lambda (x)
+             (let ((p-val (funcall ,pred x)))
+               (if p-val
+                   (return-from ,block-name p-val))))
+          r)))))

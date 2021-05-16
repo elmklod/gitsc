@@ -1,0 +1,7 @@
+* (cons t 3)
+
+(T . 3)
+* (list 'do'not'feed'the'weeds)
+
+(DO NOT FEED THE WEEDS)
+* (dribble)

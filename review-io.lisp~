@@ -1,0 +1,7 @@
+;;; symbols are blocks of 5 pointers:
+;;; name(a string), package, property-list, value, function
+;;; each pointer can be extracted with the apropriate selector
+;;; applied to a symbol
+
+;;; strings are sequences or zero or more characters.
+;;; They are delimited by ""

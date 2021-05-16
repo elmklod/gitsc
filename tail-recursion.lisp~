@@ -1,0 +1,44 @@
+(defun count-up (n)
+  (tr-count-up n nil))
+
+(defun tr-count-up (n result)
+  (cond ((zerop n) result)
+        (t (tr-count-up (- n 1) (cons n result)))))
+
+(defun fact (n)
+  (tr-fact n 1))
+
+(defun tr-fact (n result)
+  (cond ((zerop n) result)
+        (t (tr-fact (- n 1) (* n result)))))
+
+(defun union (set1 set2)
+  (tr-union set1 set2 nil))
+
+(defun tr-union (set1 set2 set1-unique)
+  (cond ((null set1) (append set1-unique set2)) ; depending on the average size of union and set2, their positions may be swapped, with the smaller taking the first, bigger the second
+        ((member (first set1) set2)
+         (tr-union (rest set1) set2 set1-unique))
+        (t (tr-union 
+            (rest set1)
+            set2
+            (cons (first set1)
+                  set1-unique)))))
+
+(defun intersection (set1 set2)
+  (tr-intersection set1 set2 nil))
+
+(defun tr-intersection (set1 set2 intersection)
+  (cond ((null set1) intersection)
+        ((member (first set1) set2)
+         (tr-intersection
+          (rest set1)
+          set2
+          (cons (first set1) intersection)))
+        (t (tr-intersection
+            (rest set1)
+            set2
+            intersection))))
+
+
+

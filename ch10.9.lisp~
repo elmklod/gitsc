@@ -1,0 +1,91 @@
+;;; This version is more appropriate than book's.
+(defun add (prop obj)
+  (let ((entry (assoc obj *things*)))
+    (if entry
+        (nconc (assoc obj *things*)
+               (list prop))
+        (push (list obj prop) *things*))))
+
+(defun chop-all-but-last (list)
+  (cond ((null list) nil)
+        (t (setf (car list) (car (last list))
+                 (cdr list) (cdr (last list)))
+           list))) ; or just nil for the cdr if the lists are always proper
+
+(defun chop (list)
+  (cond ((null list) nil)
+        (t (setf (cdr list) nil) ; nil may be substituted with (cdr (last list)) to preserve the non-nil atom at the end
+           list)))
+
+;;; as nil is never supposed to be choped or tacked at
+(defun chop (list)
+  (setf (cdr list) nil)
+  list)
+
+(defun ntack (symbol list)
+  (setf (cdr (last list)) (list symbol))
+  list)
+
+;;; if nil is a concern
+;;; it still cannot update a variable which value is nil
+(defun ntack (symbol list)
+  (cond ((null list) (list symbol))
+        (t (setf (cdr (last list)) (list symbol))
+           list)))
+;;; or
+
+(defun ntack (symbol list) ; this one fails
+                           ; how to elegantly fix it?
+  (nreverse (push symbol (nreverse list))))
+
+;;; only works with version 1 of nreverse - nonportable
+(defun ntack (symbol list)
+  (setf list (nreverse list))
+  (push symbol list)
+  (nreverse list))
+
+;;; only works wish version 2 of nreverse - nonportable
+(defun ntack (symbol list)
+  (nreverse list)
+  (let ((rest (cdr list))
+        (first (car list)))
+    (setf (car list) symbol
+          (cdr list) (cons first rest))
+    (nreverse list)))
+
+;;; works with any version - portable
+(defun ntack (symbol list)
+  (setf list (nreverse list))
+  (let ((rest (cdr list))
+        (first (car list)))
+    (setf (car list) symbol
+          (cdr list) (cons first rest))
+    (nreverse list)))
+
+(setf x '(a b c))
+
+(setf (cdr (last x)) x)
+
+;;; x
+;;; |
+;;; v
+;;; |.|.| -> |.|.| -> |.|.| -> nil
+;;;  |        |        |
+;;;  v        v        v
+;;;  a        b        c
+
+
+;;; .--------------------.
+;;; |                    |
+;;; v                    |
+;;; |.|.| -> |.|.| -> |.|.|
+;;;  |        |        |
+;;;  v        v        v
+;;;  a        b        c
+
+(setf h '(hi ho))
+
+(append h h)
+;;; the result is a 4 cons cell chain
+;;; that shares 2 last cells with h
+;;; (eq (cddr (append h h)) h) = t

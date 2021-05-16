@@ -1,0 +1,10 @@
+(defun space-over (n)
+  (cond ((< n 0) (format t "~&Error!~%"))
+        ((zerop n) nil)
+        (t (format t " ")
+           (space-over (- n 1)))))
+
+(defun test (n)
+  (format t "~%>>>")
+  (space-over n)
+  (format t "<<<"))

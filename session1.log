@@ -1,0 +1,8 @@
+
+CL-USER 4 > (cons t 3)
+(T . 3)
+
+CL-USER 5 > (list 'to(list 'd'(list 'do 'not 'feed'(list 'do 'not 'feed th(list 'do'not'feed'the'ree(list 'do'not'feed'the'weeds)
+(DO NOT FEED THE WEEDS)
+
+CL-USER 6 > (dribble)

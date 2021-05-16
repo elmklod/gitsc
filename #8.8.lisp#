@@ -1,0 +1,44 @@
+(defun add-up (numlist)
+  (cond ((null numlist) 0)
+        (t (+ (first numlist) 
+              (ADD-UP (REST NUMLIST))))))
+
+(DEFUN ALLODDP (NUMLIST)
+  (COND ((NULL NUMLIST) T)
+        (T (AND (ODDP (FIRST NUMLIST))
+                (ALLODDP (REST NUMLIST))))))
+
+(DEFUN REC-MEMBER (ELEMENT LIST)
+  (COND ((NULL LIST) NIL)
+        ((EQL ELEMENT
+              (FIRST LIST))
+         LIST)
+        (T (REC-MEMBER ELEMENT (REST LIST)))))
+
+(DEFUN REC-ASSOC (KEY TABLE)
+  (COND ((NULL TABLE)
+         NIL)
+        ((EQL KEY 
+              (CAR
+               (FIRST TABLE))) ; OPTIMIZE THE ACCESSING VIA LET-BINDINGS
+         (FIRST TABLE))
+        (T (REC-ASSOC KEY (REST TABLE)))))
+
+
+(DEFUN REC-NTH (N LIST)
+  (COND ((ZEROP N)
+         (FIRST LIST))
+        (T (REC-NTH (- N 1) (REST LIST)))))
+
+(defun add1 (n) (+ n 1))
+
+(defun sub1 (n) (- n 1))
+
+(defun rec-plus (x y)
+  (cond ((zerop y) x)
+        (t (rec-plus (add1 x) (sub1 y)))))
+
+(defun rec-plus (x y)
+  (cond ((zerop y) x)
+        (t (add1 (rec-plus x (sub1 y))))))
+

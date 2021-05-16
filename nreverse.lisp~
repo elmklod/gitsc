@@ -1,0 +1,26 @@
+;;; v1 mutates cdrs, v2 - cars
+
+(defun nreverse-v1 (list) ;;; bug-ridden
+  (cond ((null list) nil)
+        (t (let ((reversed-tail (nreverse-v1 (cdr list))))
+             (if reversed-tail
+                 (setf (cdr (last reversed-tail))
+                       list)
+                 (setf reversed-tail list))
+             reversed-tail))))
+
+(defun nreverse-v1 (list) ;;; correct
+  (cond ((null list) nil)
+        (t (let ((reversed-tail (nreverse-v1 (cdr list))))
+             (setf (cdr list) nil)
+             (if reversed-tail
+                 (setf (cdr (last reversed-tail))
+                       list)
+                 (setf reversed-tail list))
+             reversed-tail))))
+
+;;; want to write an iterative one
+;;; and the one that utilizes tco using internal functions
+
+
+;;; v2 swaps elements, not cons cells

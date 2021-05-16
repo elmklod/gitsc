@@ -1,0 +1,13 @@
+(defun find-first-odd (numlist)
+  (dolist (e numlist)
+    (format t "~&Testing ~s..." e)
+    (when (oddp e)
+      (format t "found an odd number.")
+      (return e))))      
+    
+
+(defun check-all-odd (numlist)
+  (dolist (e numlist t)
+    (format t "~&Checking ~s..." e)
+    (when (evenp e)
+      (return))))
