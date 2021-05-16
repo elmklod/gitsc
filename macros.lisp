@@ -1,4 +1,4 @@
-;;; an important topic is whether input produced by macro calls
+;;; an important topic is whether output produced by macro calls
 ;;; should be copied or not by copy-tree
 ;;; Copying it allows for the produced code to be mutated.
 ;;; What possibilities this opens is limited only by one's own imagination
