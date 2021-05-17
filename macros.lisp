@@ -9,6 +9,8 @@
 ;;; otherwise the user is resposible for the copying
 ;;; by explicitly inserting calls to copy-tree when such copying
 ;;; is desired.
+;;; in case of backquote this is already a built-in behaviour since it recreates every list anew
+;;; Need to confirm it further.
 
 (defmacro if-found-return-pred (pred &rest r)
   (let ((block-name (gensym)))
